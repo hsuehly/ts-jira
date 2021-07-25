@@ -2,11 +2,31 @@ import { useAuth } from "context/auth-contex";
 import { FC, ReactElement } from "react";
 import { Form, Input } from "antd";
 import { Lonbutton } from "unauthenticated-app";
-
-const RegisterScreen: FC = (): ReactElement => {
+import { useAsync } from "utils/use-async";
+interface IProps {
+  onError: (error: Error) => void;
+}
+const RegisterScreen: FC<IProps> = ({ onError }): ReactElement => {
   const { register } = useAuth();
-  const handleSubmit = (values: { username: string; password: string }) => {
-    register(values);
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+
+  const handleSubmit = async ({
+    cpasswoed,
+    ...values
+  }: {
+    username: string;
+    password: string;
+    cpasswoed: string;
+  }) => {
+    if (cpasswoed !== values.password) {
+      onError(new Error("请确认两次输入的密码相同"));
+      return;
+    }
+    try {
+      await run(register(values));
+    } catch (error: any) {
+      onError(error);
+    }
   };
 
   return (
@@ -23,8 +43,14 @@ const RegisterScreen: FC = (): ReactElement => {
       >
         <Input placeholder="密码" type="password" id="password" />
       </Form.Item>
+      <Form.Item
+        name="cpassword"
+        rules={[{ required: true, message: "请确认密码" }]}
+      >
+        <Input placeholder="确认密码" type="password" id="cpassword" />
+      </Form.Item>
       <Form.Item>
-        <Lonbutton htmlType="submit" type="primary">
+        <Lonbutton htmlType="submit" type="primary" loading={isLoading}>
           注册
         </Lonbutton>
       </Form.Item>

@@ -2,11 +2,22 @@ import { useAuth } from "context/auth-contex";
 import { FC, ReactElement } from "react";
 import { Form, Input } from "antd";
 import { Lonbutton } from "unauthenticated-app";
-
-const Login: FC = (): ReactElement => {
+import { useAsync } from "utils/use-async";
+interface ILogoProps {
+  onError(error: Error): void;
+}
+const Login: FC<ILogoProps> = ({ onError }): ReactElement => {
   const { login } = useAuth();
-  const handleSubmit = (values: { username: string; password: string }) => {
-    login(values);
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      await run(login(values));
+    } catch (e: any) {
+      onError(e);
+    }
   };
 
   return (
@@ -24,7 +35,7 @@ const Login: FC = (): ReactElement => {
         <Input placeholder="密码" type="password" id="password" />
       </Form.Item>
       <Form.Item>
-        <Lonbutton htmlType="submit" type="primary">
+        <Lonbutton htmlType="submit" type="primary" loading={isLoading}>
           登录
         </Lonbutton>
       </Form.Item>

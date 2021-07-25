@@ -2,7 +2,7 @@ import { FC, ReactElement } from "react";
 import { Table, TableProps } from "antd";
 import { User } from "./search-panel";
 import dayjs from "dayjs";
-interface Project {
+export interface Project {
   id: string;
   name: string;
   personId: string;
