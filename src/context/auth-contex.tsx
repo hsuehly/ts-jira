@@ -1,8 +1,10 @@
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
 import * as auth from "auth-provider";
 import { User } from "screens/project-list/search-panel";
 import { http } from "utils/http";
 import { useMount } from "utils";
+import { useAsync } from "utils/use-async";
+import { FUllPageErrorFallback, FullPageLoading } from "components/lib";
 
 interface AuthForm {
   username: string;
@@ -32,15 +34,29 @@ const AuthContext = createContext<
 AuthContext.displayName = "AuthContext";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    data: user,
+    error,
+    isLoading,
+    isIdle,
+    isError,
+    run,
+    setData: setUser,
+  } = useAsync<User | null>();
   // 页面加载是调用函数初始化setUSer
-  useMount(() => {
-    bootstrapUser().then(setUser);
-  });
   // point free 形参和接受的参数一样可以消掉
   const login = (form: AuthForm) => auth.login(form).then(setUser);
   const register = (form: AuthForm) => auth.register(form).then(setUser);
   const logout = () => auth.logout().then((user) => setUser(null));
+  useMount(() => {
+    run(bootstrapUser());
+  });
+  if (isIdle || isLoading) {
+    return <FullPageLoading />;
+  }
+  if (isError) {
+    return <FUllPageErrorFallback error={error} />;
+  }
   //调用它把自身返回出去
   return (
     <AuthContext.Provider
