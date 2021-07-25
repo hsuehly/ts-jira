@@ -49,3 +49,19 @@ export const useArray = <T>(initialArray: T[]) => {
     },
   };
 };
+export const useDocumentTitle = (
+  title: string,
+  keepOnUnmont: boolean = true
+) => {
+  const oldTitle = document.title;
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+  useEffect(() => {
+    return () => {
+      if (!keepOnUnmont) {
+        document.title = oldTitle;
+      }
+    };
+  }, []);
+};
