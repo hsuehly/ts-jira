@@ -24,7 +24,6 @@ const ProjectListScreen = () => {
   return (
     <Container>
       <h1>项目列表</h1>
-      <button onClick={retry}>retry</button>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
