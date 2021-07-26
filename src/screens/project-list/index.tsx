@@ -8,9 +8,7 @@ import { useUsers } from "utils/user";
 import { useProjectsSearchParams } from "./util";
 import { Row } from "components/lib";
 
-const ProjectListScreen = (props: {
-  setProjectModalOpen: (isOpen: boolean) => void;
-}) => {
+const ProjectListScreen = (props: { prijectButton: JSX.Element }) => {
   useDocumentTitle("项目列表", false);
   // 基本类型可以放在依赖里,组件状态可以放在依赖里,非组件状态的对象绝不可以放在依赖里
   // const [keys] = useState<('name' | 'personId')[]>(['name','personId'])
@@ -30,10 +28,7 @@ const ProjectListScreen = (props: {
     <Container>
       <Row between={true}>
         <h1>项目列表</h1>
-        <Button onClick={() => props.setProjectModalOpen(true)}>
-          {" "}
-          创建项目
-        </Button>
+        {props.prijectButton}
       </Row>
 
       <SearchPanel users={users || []} param={param} setParam={setParam} />
@@ -45,7 +40,7 @@ const ProjectListScreen = (props: {
         loading={isLoading}
         dataSource={list || []}
         users={users || []}
-        setProjectModalOpen={props.setProjectModalOpen}
+        prijectButton={props.prijectButton}
       />
     </Container>
   );
