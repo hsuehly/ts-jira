@@ -4,6 +4,7 @@ import { cleanObject } from "utils";
 
 export const useUrlQueryParam = <T extends string>(keys: T[]) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  // console.log(searchParams,'-------2')
   return [
     useMemo(
       () =>

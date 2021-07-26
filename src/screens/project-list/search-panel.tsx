@@ -21,6 +21,7 @@ const SearchPanel: FC<SearchPanelProps> = ({
   setParam,
   users,
 }): ReactElement => {
+  // console.log(param,'-----------')
   return (
     <Form style={{ marginBottom: "2rem" }} layout="inline">
       <Form.Item>

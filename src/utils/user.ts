@@ -10,7 +10,7 @@ export const useUsers = (param?: Partial<User>) => {
   const { run, ...result } = useAsync<User[]>();
 
   useEffect(() => {
-    run(client("projects", { data: cleanObject(param || {}) }));
+    run(client("users", { data: cleanObject(param || {}) }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param]);
   return result;
