@@ -1,6 +1,7 @@
 import qs from "qs";
 import * as auth from "auth-provider";
 import { useAuth } from "context/auth-contex";
+import { useCallback } from "react";
 interface Config extends RequestInit {
   data?: object;
   token?: string;
@@ -46,8 +47,11 @@ export const http = async (
 // ts的typeof 是在静态环境中运行的
 export const useHttp = () => {
   const { user } = useAuth();
-  return (...[endpoint, config]: Parameters<typeof http>) =>
-    http(endpoint, { ...config, token: user?.token });
+  return useCallback(
+    (...[endpoint, config]: Parameters<typeof http>) =>
+      http(endpoint, { ...config, token: user?.token }),
+    [user?.token]
+  );
 };
 
 // const say  = (name: string, age: number): string => {
