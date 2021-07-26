@@ -11,14 +11,14 @@ const RegisterScreen: FC<IProps> = ({ onError }): ReactElement => {
   const { run, isLoading } = useAsync(undefined, { throwOnError: true });
 
   const handleSubmit = async ({
-    cpasswoed,
+    cpassword,
     ...values
   }: {
     username: string;
     password: string;
-    cpasswoed: string;
+    cpassword: string;
   }) => {
-    if (cpasswoed !== values.password) {
+    if (cpassword !== values.password) {
       onError(new Error("请确认两次输入的密码相同"));
       return;
     }
