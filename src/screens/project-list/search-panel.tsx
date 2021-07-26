@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react";
-import { Input, Select, Form } from "antd";
+import { Input, Form } from "antd";
 import { Project } from "./list";
 import { UserSelect } from "components/user-select";
 
