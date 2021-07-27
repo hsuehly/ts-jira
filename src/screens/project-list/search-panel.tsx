@@ -26,6 +26,7 @@ const SearchPanel: FC<SearchPanelProps> = ({
     <Form style={{ marginBottom: "2rem" }} layout="inline">
       <Form.Item>
         <Input
+          placeholder={"项目名"}
           type="text"
           value={param.name}
           onChange={(e) =>

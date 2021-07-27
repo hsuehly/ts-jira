@@ -17,7 +17,6 @@ export interface Project {
 interface IProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
-  prijectButton: JSX.Element;
 }
 const List: FC<IProps> = ({ users, ...props }): ReactElement => {
   const { mutate } = useEditProject();
@@ -82,7 +81,7 @@ const List: FC<IProps> = ({ users, ...props }): ReactElement => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}>{props.prijectButton}</Menu.Item>
+                    <Menu.Item key={"edit"}></Menu.Item>
                   </Menu>
                 }
               >

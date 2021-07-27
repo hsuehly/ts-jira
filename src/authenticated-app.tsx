@@ -25,46 +25,34 @@ import { ProjectModal } from "screens/project-list/project-modal";
  */
 
 export const AuthenticatedApp: FC = (): ReactElement => {
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
-  const prijectButton = (
-    <ButtonNoPadding type="link" onClick={() => setProjectModalOpen(true)}>
-      创建项目
-    </ButtonNoPadding>
-  );
   return (
     <Container>
-      <PageHeader prijectButton={prijectButton} />
-      <Main>
-        <BrowserRouter>
+      <BrowserRouter>
+        <PageHeader />
+        <Main>
           <Routes>
-            <Route
-              path={"/projects"}
-              element={<ProjectListScreen prijectButton={prijectButton} />}
-            />
+            <Route path={"/projects"} element={<ProjectListScreen />} />
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             />
             <Navigate to="/projects" />
           </Routes>
-        </BrowserRouter>
-      </Main>
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        onClose={() => setProjectModalOpen(false)}
-      />
+        </Main>
+        <ProjectModal />
+      </BrowserRouter>
     </Container>
   );
 };
 
-const PageHeader = (props: { prijectButton: JSX.Element }) => {
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonNoPadding type="link" onClick={resetRoute}>
           <SoftwareLogo width="18rem" color="rgb(38,132,255)" />
         </ButtonNoPadding>
-        <ProjectPopover {...props} />
+        <ProjectPopover />
         <span>用户</span>
       </HeaderLeft>
       <HeaderRight>

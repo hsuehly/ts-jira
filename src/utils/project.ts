@@ -26,8 +26,8 @@ export const useEditProject = () => {
   const mutate = (params: Partial<Project>) => {
     return run(
       client(`projects/${params.id}`, {
-        data: params,
         method: "PATCH",
+        data: params,
       })
     );
   };

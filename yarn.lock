@@ -10405,7 +10405,7 @@ react-query@^2.26.3:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-react-query@^3.19.0, react-query@^3.5.10:
+react-query@^3.19.1, react-query@^3.5.10:
   version "3.19.1"
   resolved "https://registry.nlark.com/react-query/download/react-query-3.19.1.tgz#f3fbd5af48b6c47901ab230f7c028c6f845254ac"
   integrity sha1-8/vVr0i2xHkBqyMPfAKMb4RSVKw=

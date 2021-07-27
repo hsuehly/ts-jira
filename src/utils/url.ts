@@ -1,25 +1,33 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { URLSearchParamsInit, useSearchParams } from "react-router-dom";
-import { cleanObject } from "utils";
+import { cleanObject, subset } from "utils";
 
-export const useUrlQueryParam = <T extends string>(keys: T[]) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  // console.log(searchParams,'-------2')
+export const useUrlQueryParam = <K extends string>(keys: K[]) => {
+  const [searchParams] = useSearchParams();
+  const setSearchParams = useSetUrlSearchParam();
+  const [stateKeys] = useState(keys);
   return [
     useMemo(
       () =>
-        keys.reduce((prev, key) => {
-          return { ...prev, [key]: searchParams.get(key) || "" };
-        }, {} as { [key in T]: string }),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [searchParams]
+        subset(Object.fromEntries(searchParams), stateKeys) as {
+          [key in K]: string;
+        },
+      [searchParams, stateKeys]
     ),
-    (params: Partial<{ [key in T]: unknown }>) => {
-      const o = cleanObject({
-        ...Object.fromEntries(searchParams),
-        ...params,
-      }) as URLSearchParamsInit;
-      return setSearchParams(o);
+    (params: Partial<{ [key in K]: unknown }>) => {
+      return setSearchParams(params);
+      // iterator
+      // iterator: https://codesandbox.io/s/upbeat-wood-bum3j?file=/src/index.js
     },
   ] as const;
+};
+export const useSetUrlSearchParam = () => {
+  const [searchParams, setSearchParam] = useSearchParams();
+  return (params: { [key in string]: unknown }) => {
+    const o = cleanObject({
+      ...Object.fromEntries(searchParams),
+      ...params,
+    }) as URLSearchParamsInit;
+    return setSearchParam(o);
+  };
 };
