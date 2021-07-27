@@ -35,6 +35,7 @@ export const useAsync = <T>(
     }
   );
   const safeDispatch = useSafeDispatch(dispatch);
+
   const [retry, setRetry] = useState(() => () => {});
   const setData = useCallback(
     (data: T) =>
@@ -73,6 +74,7 @@ export const useAsync = <T>(
         })
         .catch((error) => {
           // catch 会消化异常 如果不主动抛出外边是接受不到异常
+          // console.log(error,'--------')
           setError(error);
           if (config.throwOnError) return Promise.reject(error);
           return error;

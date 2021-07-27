@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useEditProject } from "utils/project";
 import { ButtonNoPadding } from "components/lib";
+import { projectListAction } from "./project-list.slice";
+import { useDispatch } from "react-redux";
 export interface Project {
   id: number;
   name: string;
@@ -17,7 +19,6 @@ export interface Project {
 interface IProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
-  prijectButton: JSX.Element;
 }
 const List: FC<IProps> = ({ users, ...props }): ReactElement => {
   const { mutate } = useEditProject();
@@ -26,6 +27,7 @@ const List: FC<IProps> = ({ users, ...props }): ReactElement => {
       return mutate({ id, pin }).then(props.refresh);
     };
   };
+  const dispatch = useDispatch();
   return (
     <Table
       rowKey={"id"}
@@ -82,7 +84,16 @@ const List: FC<IProps> = ({ users, ...props }): ReactElement => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}>{props.prijectButton}</Menu.Item>
+                    <Menu.Item key={"edit"}>
+                      <ButtonNoPadding
+                        type={"link"}
+                        onClick={() =>
+                          dispatch(projectListAction.openProjectModal())
+                        }
+                      >
+                        编辑
+                      </ButtonNoPadding>
+                    </Menu.Item>
                   </Menu>
                 }
               >

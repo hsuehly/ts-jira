@@ -3,6 +3,7 @@ import { FC, ReactElement } from "react";
 import { Form, Input } from "antd";
 import { Lonbutton } from "unauthenticated-app";
 import { useAsync } from "utils/use-async";
+
 interface ILogoProps {
   onError(error: Error): void;
 }
@@ -16,7 +17,9 @@ const Login: FC<ILogoProps> = ({ onError }): ReactElement => {
     try {
       await run(login(values));
     } catch (e: any) {
+      console.log(e, "-------3");
       onError(e);
+      // console.log(e)
     }
   };
 

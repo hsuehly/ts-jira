@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement } from "react";
 import { useAuth } from "context/auth-contex";
 import ProjectListScreen from "screens/project-list";
 import styled from "@emotion/styled";
@@ -25,22 +25,13 @@ import { ProjectModal } from "screens/project-list/project-modal";
  */
 
 export const AuthenticatedApp: FC = (): ReactElement => {
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
-  const prijectButton = (
-    <ButtonNoPadding type="link" onClick={() => setProjectModalOpen(true)}>
-      创建项目
-    </ButtonNoPadding>
-  );
   return (
     <Container>
-      <PageHeader prijectButton={prijectButton} />
+      <PageHeader />
       <Main>
         <BrowserRouter>
           <Routes>
-            <Route
-              path={"/projects"}
-              element={<ProjectListScreen prijectButton={prijectButton} />}
-            />
+            <Route path={"/projects"} element={<ProjectListScreen />} />
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
@@ -49,22 +40,19 @@ export const AuthenticatedApp: FC = (): ReactElement => {
           </Routes>
         </BrowserRouter>
       </Main>
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        onClose={() => setProjectModalOpen(false)}
-      />
+      <ProjectModal />
     </Container>
   );
 };
 
-const PageHeader = (props: { prijectButton: JSX.Element }) => {
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonNoPadding type="link" onClick={resetRoute}>
           <SoftwareLogo width="18rem" color="rgb(38,132,255)" />
         </ButtonNoPadding>
-        <ProjectPopover {...props} />
+        <ProjectPopover />
         <span>用户</span>
       </HeaderLeft>
       <HeaderRight>
