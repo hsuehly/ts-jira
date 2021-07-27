@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import { URLSearchParamsInit, useSearchParams } from "react-router-dom";
 import { cleanObject, subset } from "utils";
 
+/**
+ * 返回页面url中，指定键的参数值
+ */
 export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   const [searchParams] = useSearchParams();
   const setSearchParams = useSetUrlSearchParam();
@@ -21,6 +24,7 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
     },
   ] as const;
 };
+
 export const useSetUrlSearchParam = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   return (params: { [key in string]: unknown }) => {

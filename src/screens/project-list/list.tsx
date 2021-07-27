@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useEditProject } from "utils/project";
 import { ButtonNoPadding } from "components/lib";
+import { useProjectModal } from "./util";
 export interface Project {
   id: number;
   name: string;
@@ -16,13 +17,13 @@ export interface Project {
 }
 interface IProps extends TableProps<Project> {
   users: User[];
-  refresh?: () => void;
 }
 const List: FC<IProps> = ({ users, ...props }): ReactElement => {
+  const { open } = useProjectModal();
   const { mutate } = useEditProject();
   const pinProject = (id: number) => {
     return (pin: boolean) => {
-      return mutate({ id, pin }).then(props.refresh);
+      return mutate({ id, pin });
     };
   };
   return (
@@ -81,7 +82,9 @@ const List: FC<IProps> = ({ users, ...props }): ReactElement => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}></Menu.Item>
+                    <Menu.Item key={"edit"}>
+                      <ButtonNoPadding onClick={open}>编辑</ButtonNoPadding>
+                    </Menu.Item>
                   </Menu>
                 }
               >

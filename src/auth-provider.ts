@@ -1,8 +1,11 @@
-import { User } from "screens/project-list/search-panel";
 // 在真实环境中,如果使用firebase这种第三方auth服务的话,本文件不需要开发者开发
 
-const localStorageKey = "__auth_provider_token__";
+import { User } from "screens/project-list/search-panel";
+
 const apiUrl = "http://localhost:3001";
+
+const localStorageKey = "__auth_provider_token__";
+
 export const getToken = () => window.localStorage.getItem(localStorageKey);
 
 export const handleUserResponse = ({ user }: { user: User }) => {
@@ -17,11 +20,11 @@ export const login = (data: { username: string; password: string }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(async (res) => {
-    if (res.ok) {
-      return handleUserResponse(await res.json());
+  }).then(async (response) => {
+    if (response.ok) {
+      return handleUserResponse(await response.json());
     } else {
-      return Promise.reject(await res.json());
+      return Promise.reject(await response.json());
     }
   });
 };
@@ -33,11 +36,11 @@ export const register = (data: { username: string; password: string }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(async (res) => {
-    if (res.ok) {
-      return handleUserResponse(await res.json());
+  }).then(async (response) => {
+    if (response.ok) {
+      return handleUserResponse(await response.json());
     } else {
-      return Promise.reject(await res.json());
+      return Promise.reject(await response.json());
     }
   });
 };

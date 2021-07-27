@@ -1,11 +1,9 @@
 import { useMemo } from "react";
 import { useUrlQueryParam } from "utils/url";
 
+// 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
-  // 项目列表搜索参数
   const [param, setParam] = useUrlQueryParam(["name", "personId"]);
-  // console.log(param,'------1')
-
   return [
     useMemo(
       () => ({ ...param, personId: Number(param.personId) || undefined }),
@@ -13,6 +11,11 @@ export const useProjectsSearchParams = () => {
     ),
     setParam,
   ] as const;
+};
+
+export const useProjectsQueryKey = () => {
+  const [params] = useProjectsSearchParams();
+  return ["projects", params];
 };
 
 export const useProjectModal = () => {
