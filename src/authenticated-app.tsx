@@ -99,5 +99,6 @@ const Container = styled.div`
 // height: 6rem;
 // `
 const Main = styled.main`
-  height: calc(100vh - 6rem);
+  display: flex;
+  overflow: hidden;
 `;
