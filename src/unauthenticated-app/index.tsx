@@ -1,5 +1,5 @@
 import { FC, ReactElement, useState } from "react";
-import { Card, Divider, Button, Typography } from "antd";
+import { Card, Divider, Button } from "antd";
 import RegisterScreen from "unauthenticated-app/register";
 import Login from "unauthenticated-app/login";
 import styled from "@emotion/styled";

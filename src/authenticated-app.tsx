@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement } from "react";
 import { useAuth } from "context/auth-contex";
 import ProjectListScreen from "screens/project-list";
 import styled from "@emotion/styled";
