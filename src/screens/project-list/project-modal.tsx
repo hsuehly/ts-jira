@@ -28,7 +28,6 @@ export const ProjectModal = () => {
   };
   const closeModal = () => {
     form.resetFields();
-    console.log("---");
     close();
   };
 
@@ -69,9 +68,9 @@ export const ProjectModal = () => {
               <Form.Item
                 label={"部门"}
                 name={"organization"}
-                rules={[{ required: true, message: "请输入部门名" }]}
+                rules={[{ required: true, message: "请输入部门名称" }]}
               >
-                <Input placeholder={"请输入部门名"} />
+                <Input placeholder={"请输入部门名称"} />
               </Form.Item>
 
               <Form.Item label={"负责人"} name={"personId"}>

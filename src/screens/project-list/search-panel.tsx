@@ -1,16 +1,9 @@
 import { FC, ReactElement } from "react";
 import { Input, Form } from "antd";
-import { Project } from "./list";
 import { UserSelect } from "components/user-select";
+import { Project } from "types/project";
+import { User } from "types/user";
 
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  title: string;
-  organization: string;
-  token: string;
-}
 interface SearchPanelProps {
   users: User[];
   param: Partial<Pick<Project, "name" | "personId">>;
