@@ -15,6 +15,8 @@ import { Task } from "types/task";
 import { Mark } from "components/mark";
 import { useDeleteKanban } from "utils/kanban";
 import { Row } from "components/lib";
+import { forwardRef } from "react";
+import { Drag, Drop, DropChild } from "components/drag-and-drop";
 
 const TaskTypeIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -27,26 +29,40 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
   return <img src={name === "task" ? taskIcon : bugIcon} alt="" />;
 };
 
-export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
-  const { data: allTasks } = useTasks(useTasksSearchParams());
-  const tasks = allTasks?.filter((task) => task.kanbanId === kanban.id);
+export const KanbanColumn = forwardRef<HTMLDivElement, { kanban: Kanban }>(
+  ({ kanban, ...props }, ref) => {
+    const { data: allTasks } = useTasks(useTasksSearchParams());
+    const tasks = allTasks?.filter((task) => task.kanbanId === kanban.id);
 
-  return (
-    <Container>
-      <Row between={true}>
-        <h3>{kanban.name}</h3>
-        <More kanban={kanban} />
-      </Row>
+    return (
+      <Container ref={ref} {...props}>
+        <Row between={true}>
+          <h3>{kanban.name}</h3>
+          <More kanban={kanban} key={kanban.id} />
+        </Row>
 
-      <TasksContainer>
-        {tasks?.map((task) => (
-          <TaskCard task={task} />
-        ))}
-        <CreateTask kanbanId={kanban.id} />
-      </TasksContainer>
-    </Container>
-  );
-};
+        <TasksContainer>
+          <Drop type="ROW" droppableId={String(kanban.id)} direction="vertical">
+            <DropChild style={{ minHeight: "5px" }}>
+              {tasks?.map((task, taskIndex) => (
+                <Drag
+                  key={task.id}
+                  index={taskIndex}
+                  draggableId={"task" + task.id}
+                >
+                  <div>
+                    <TaskCard task={task} key={task.id} />
+                  </div>
+                </Drag>
+              ))}
+            </DropChild>
+          </Drop>
+          <CreateTask kanbanId={kanban.id} />
+        </TasksContainer>
+      </Container>
+    );
+  }
+);
 const TaskCard = ({ task }: { task: Task }) => {
   const { startEdit } = useTasksModal();
   const { name: keyword } = useTasksSearchParams();
@@ -77,7 +93,7 @@ const More = ({ kanban }: { kanban: Kanban }) => {
   };
   const overlay = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="kanban">
         <Button type="link" onClick={startEdit}>
           删除
         </Button>
