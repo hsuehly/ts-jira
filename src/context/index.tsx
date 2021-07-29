@@ -4,7 +4,17 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const AppProviders: FC = ({ children }): ReactElement => {
   return (
-    <QueryClientProvider client={new QueryClient()}>
+    <QueryClientProvider
+      client={
+        new QueryClient({
+          defaultOptions: {
+            queries: {
+              refetchInterval: false,
+            },
+          },
+        })
+      }
+    >
       <AuthProvider>{children}</AuthProvider>
     </QueryClientProvider>
   );

@@ -8,13 +8,16 @@ import "antd/dist/antd.less";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AppProviders from "context";
+import { Profiler } from "components/profiler";
 
 loadServer(() =>
   ReactDOM.render(
     <React.StrictMode>
       <AppProviders>
         <DevTools />
-        <App />
+        <Profiler id="RootAPP" phases={["mount"]}>
+          <App />
+        </Profiler>
       </AppProviders>
     </React.StrictMode>,
     document.getElementById("root")

@@ -11,6 +11,7 @@ import {
   Row,
   ScreenContainer,
 } from "components/lib";
+import { Profiler } from "components/profiler";
 
 const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
@@ -25,18 +26,20 @@ const ProjectListScreen = () => {
   // setParam({name1:'ss'})
   // console.log('----------',users)
   return (
-    <ScreenContainer>
-      <Row marginBottom={2} between={true}>
-        <h1>项目列表</h1>
-        <ButtonNoPadding onClick={open} type={"link"}>
-          创建项目
-        </ButtonNoPadding>
-      </Row>
+    <Profiler id="项目列表">
+      <ScreenContainer>
+        <Row marginBottom={2} between={true}>
+          <h1>项目列表</h1>
+          <ButtonNoPadding onClick={open} type={"link"}>
+            创建项目
+          </ButtonNoPadding>
+        </Row>
 
-      <SearchPanel users={users || []} param={param} setParam={setParam} />
-      <ErrorBox error={error} />
-      <List loading={isLoading} dataSource={list || []} users={users || []} />
-    </ScreenContainer>
+        <SearchPanel users={users || []} param={param} setParam={setParam} />
+        <ErrorBox error={error} />
+        <List loading={isLoading} dataSource={list || []} users={users || []} />
+      </ScreenContainer>
+    </Profiler>
   );
 };
 export default ProjectListScreen;
