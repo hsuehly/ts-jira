@@ -25,7 +25,7 @@ import { UserPopover } from "components/user-popover";
  * 从布局出发 用grid
  */
 
-export const AuthenticatedApp: FC = (): ReactElement => {
+const AuthenticatedApp: FC = (): ReactElement => {
   return (
     <Container>
       <BrowserRouter>
@@ -82,6 +82,8 @@ const User = () => {
     </Dropdown>
   );
 };
+
+export default AuthenticatedApp;
 const Header = styled(Row)`
   padding: 3.2rem;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);

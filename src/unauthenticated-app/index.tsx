@@ -34,6 +34,9 @@ const UnauthenticatedApp: FC = (): ReactElement => {
     </Container>
   );
 };
+
+export default UnauthenticatedApp;
+
 export const Lonbutton = styled(Button)`
   width: 100%;
 `;
@@ -73,5 +76,3 @@ const ShadowCard = styled(Card)`
   box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   text-align: center;
 `;
-
-export default UnauthenticatedApp;
