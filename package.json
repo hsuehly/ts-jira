@@ -59,11 +59,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^7.0.1",
     "@welldone-software/why-did-you-render": "^6.2.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": ">=6",
     "json-server": "^0.16.3",
     "lint-staged": ">=10",
+    "msw": "^0.33.1",
     "prettier": "2.3.2"
   },
   "lint-staged": {

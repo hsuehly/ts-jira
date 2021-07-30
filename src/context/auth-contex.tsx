@@ -74,7 +74,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 // 自定义 useAuthhook
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  //判断context寸不存在
   if (!context) {
     throw new Error("useAuth必须在AuthProvider中使用");
   }

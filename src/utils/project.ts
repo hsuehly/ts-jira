@@ -1,5 +1,6 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { Project } from "types/project";
+import { cleanObject } from "utils";
 import { useHttp } from "./http";
 import {
   useAddConfig,
@@ -10,7 +11,7 @@ import {
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
 
-  return useQuery<Project[]>(["projects", param], () =>
+  return useQuery<Project[]>(["projects", cleanObject(param)], () =>
     client("projects", { data: param })
   );
 };

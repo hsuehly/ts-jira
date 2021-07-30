@@ -2,7 +2,7 @@
 
 import { User } from "types/user";
 
-const apiUrl = "http://localhost:3001";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const localStorageKey = "__auth_provider_token__";
 
